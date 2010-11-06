@@ -62,7 +62,7 @@ authors = ARGV.map do |initials|
 end
 
 if authors.any?
-  authors.sort!.uniq!
+  authors.uniq!
   names, emails = authors.collect do |a|
     both = a.split(";").collect {|s| s.strip}
     both << both[0].split(' ').first.downcase if both.length == 1  # default email to first name
