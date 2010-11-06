@@ -76,8 +76,8 @@ if authors.any?
   when 2
     system("git", "config", "--global", "user.name", "#{authors.first}")
     system("git", "config", "--global", "user.email", "#{emails.first}")
-    system("git", "config", "--global", "committer.name", "#{authors.last}")
-    system("git", "config", "--global", "committer.email", "#{emails.last}")
+    system("git", "config", "--global", "author.name", "#{authors.last}")
+    system("git", "config", "--global", "author.email", "#{emails.last}")
   end
 else
   `git config --global --unset user.name`
