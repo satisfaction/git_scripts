@@ -71,24 +71,19 @@ if authors.any?
 
   case authors.size
   when 1
-    authors = names.first
+    system("git", "config", "--global", "user.name", "#{authors.first}")
+    system("git", "config", "--global", "user.email", "#{emails.first}")
   when 2
-    authors = names.join(" & ")
-  else
-    authors = names[0..-2].join(", ") + " & " + names.last
+    system("git", "config", "--global", "user.name", "#{authors.first}")
+    system("git", "config", "--global", "user.email", "#{emails.first}")
+    system("git", "config", "--global", "committer.name", "#{authors.last}")
+    system("git", "config", "--global", "committer.email", "#{emails.last}")
   end
-  email = 
-    if email_prefix = config['email']['prefix']
-      "#{([config['email']['prefix']] + emails).join('+')}@#{config['email']['domain']}"
-    else
-      config['email']
-    end
-
-  system("git", "config", "--global", "user.name", "#{authors}")
-  system("git", "config", "--global", "user.email", "#{email}")
 else
   `git config --global --unset user.name`
   `git config --global --unset user.email`
-  puts "Unset user.name and user.email"
+  `git config --global --unset committer.name`
+  `git config --global --unset committer.email`
+  puts "Unset all user and committer settings on this machine"
 end
 puts `git config --global -l | grep user | tail -2`
